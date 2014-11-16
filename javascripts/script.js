@@ -182,14 +182,15 @@ addEventListener("keypress", function (event) {
         //console.log(target);
     } else {
         //console.log("incorrect");
+        elem = document.getElementById("incorrect");
+        console.log(div_id);
+        elem.style.visibility = "visible";
         setTimeout(reset_wrong, 500);
     }
 
     if (target === 3) {
 
         setTimeout(reset, 500);
-
-
     }
 });
 
@@ -201,6 +202,9 @@ function reset() {
 }
 function reset_wrong() {
 
+    elem = document.getElementById("incorrect");
+        console.log(div_id);
+        elem.style.visibility = "hidden";
     update();
     clearCheckBoxes();
     subPoint();

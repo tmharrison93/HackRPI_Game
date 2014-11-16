@@ -14,7 +14,9 @@
 #score {
     margin-left: auto;
     margin-right: auto;
-    height: 10em;
-    width: 10em;
-    font-size: 50px;
+}
+
+#incorrect{
+ 
+    visibility: hidden;
 }
