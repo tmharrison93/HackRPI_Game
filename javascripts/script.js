@@ -138,6 +138,14 @@ function addPoint() {
     div_id = "first_check";
 
 }
+function subPoint() {
+    div_id = "score";
+    elem = document.getElementById(div_id);
+    currScore--;
+    elem.innerHTML = currScore.toString();
+    div_id = "first_check";
+
+}
 
 
 
@@ -174,6 +182,7 @@ addEventListener("keypress", function (event) {
         //console.log(target);
     } else {
         //console.log("incorrect");
+        setTimeout(reset_wrong, 500);
     }
 
     if (target === 3) {
@@ -189,6 +198,12 @@ function reset() {
     update();
     clearCheckBoxes();
     addPoint();
+}
+function reset_wrong() {
+
+    update();
+    clearCheckBoxes();
+    subPoint();
 }
 
 function toChordSymbol(name) {
