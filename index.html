@@ -2,15 +2,28 @@
 <html>
 
 <head>
-    <title>Chord Game</title>
+    <title>Chord Counter!</title>
     <link href="/stylesheets/style.css" media="all" rel="stylesheet" type="text/css" />
     <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
     <script language="javascript" src="javascripts/sprite.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <h1>Chord Game</h1>
-    <script type='text/javascript' src='javascripts/script.js'></script>
+    <div id="header"></div>
+    <div id="page_content">
+        <h1>Chord Counter!</h1>
+        <script type='text/javascript' src='javascripts/script.js'></script>
+        <br>
+        <div class="checkbox" ><img src="images/check_mark.png" id="first_check"></div>
+        <div class="checkbox" ><img src="images/check_mark.png" id="third_check"></div>
+        <div class="checkbox" ><img src="images/check_mark.png" id="fifth_check"></div>
+        <br>
+        <br>
+        <br>
+        <h2>Current Score</h2>
+        <div id="score"></div>
+    </div>
+    <div id="footer"></div>
 </body>
 
 </html>

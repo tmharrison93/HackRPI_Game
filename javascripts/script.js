@@ -1,15 +1,10 @@
-var CANVAS_WIDTH = 480;
-var CANVAS_HEIGHT = 320;
+var CANVAS_WIDTH = 500;
+var CANVAS_HEIGHT = 400;
 var FPS = 30;
 
 var NEED_CHORD = "false";
 
 var chord = {
-    color: "#00A",
-    x: 0,
-    y: 0,
-    width: 20,
-    height: 30,
     first: "C",
     third: "E",
     fifth: "G",
@@ -18,20 +13,33 @@ var chord = {
 
 
 var target = 0;
+
+var elem;
 var current = chord.first;
+var currScore = 0;
+var div_id = "first_check";
+var delay = 3000;
 
 
 var canvasElement = $("<canvas width='" + CANVAS_WIDTH +
     "' height='" + CANVAS_HEIGHT + "'></canvas");
 var canvas = canvasElement.get(0).getContext("2d");
-canvasElement.appendTo('body');
+canvasElement.appendTo('#page_content');
+
+canvas.font = "300px Verdana";
+
+
 
 setInterval(function () {
 
     if (target === 1) {
         current = chord.third;
+        div_id = "third_check";
     } else if (target === 2) {
         current = chord.fifth;
+        div_id = "fifth_check";
+    } else if (target === 0) {
+        current = chord.first;
     }
 
     //  update();
@@ -107,6 +115,30 @@ function getChords() {
     //console.log(chord.first);
 }
 
+function clearCheckBoxes() {
+
+    div_id = "first_check";
+    elem = document.getElementById(div_id);
+    elem.style.visibility = "hidden";
+    div_id = "third_check";
+    elem = document.getElementById(div_id);
+    elem.style.visibility = "hidden";
+    div_id = "fifth_check";
+    elem = document.getElementById(div_id);
+    elem.style.visibility = "hidden";
+    div_id = "first_check";
+
+}
+
+function addPoint() {
+    div_id = "score";
+    elem = document.getElementById(div_id);
+    currScore++;
+    elem.innerHTML = currScore.toString();
+    div_id = "first_check";
+
+}
+
 
 
 function update() {
@@ -115,7 +147,7 @@ function update() {
     target = 0;
     current = chord.first;
     chord.sprite = Sprite(chord.first);
-
+    div_id = "first_check";
 }
 update();
 
@@ -127,30 +159,60 @@ function draw() {
 
 addEventListener("keypress", function (event) {
     var character = String.fromCharCode(event.charCode);
-    if(character === character.toUpperCase()){
-     character = character + "_SHARP";   
+    if (character === character.toUpperCase()) {
+        character = character + "_SHARP";
     }
-    console.log("char = " + character.toUpperCase());
-    console.log("curr = " + current);
+    // console.log("char = " + character.toUpperCase());
+    //console.log("curr = " + current);
 
     if (character.toUpperCase() === current) {
         target++;
-        console.log("correct");
-        console.log(target);
+        elem = document.getElementById(div_id);
+        console.log(div_id);
+        elem.style.visibility = "visible";
+        //console.log("correct");
+        //console.log(target);
     } else {
-        console.log("incorrect");
+        //console.log("incorrect");
     }
 
     if (target === 3) {
-        update();
+
+        setTimeout(reset, 500);
+
+
     }
 });
 
+function reset() {
 
+    update();
+    clearCheckBoxes();
+    addPoint();
+}
 
+function toChordSymbol(name) {
 
+    console.log(name.toString().substring(1, 7));
 
+    if (name.toString().substring(1, 7) === "_SHARP") {
+
+        return (name.toString().substring(0, 1) + "#");
+
+    } else {
+        return (name);
+    }
+
+}
 
 chord.draw = function () {
-    this.sprite.draw(canvas, this.x, this.y);
+    //this.sprite.draw(canvas, this.x, this.y);
+
+    console.log(chord.first.toString());
+    chord_Symbol = toChordSymbol(chord.first);
+    console.log(chord_Symbol);
+    canvas.fillText(chord_Symbol, 0, 300);
+
+
+
 };
