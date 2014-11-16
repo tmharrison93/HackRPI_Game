@@ -17,9 +17,8 @@ var chord = {
 };
 
 
-
-var current = 0;
-
+var target = 0;
+var current = chord.first;
 
 
 var canvasElement = $("<canvas width='" + CANVAS_WIDTH +
@@ -29,7 +28,13 @@ canvasElement.appendTo('body');
 
 setInterval(function () {
 
-    update();
+    if (target === 1) {
+        current = chord.third;
+    } else if (target === 2) {
+        current = chord.fifth;
+    }
+
+    //  update();
     draw();
 }, 1000 / FPS);
 
@@ -42,23 +47,23 @@ function getChords() {
         chord.fifth = "G";
         break;
     case 2:
-        chord.first = "C_sharp";
+        chord.first = "C_SHARP";
         chord.third = "F";
-        chord.fifth = "G_sharp";
+        chord.fifth = "G_SHARP";
         break;
     case 3:
         chord.first = "D";
-        chord.third = "F_sharp";
+        chord.third = "F_SHARP";
         chord.fifth = "A";
         break;
     case 4:
-        chord.first = "D_sharp";
+        chord.first = "D_SHARP";
         chord.third = "G";
-        chord.fifth = "A_sharp";
+        chord.fifth = "A_SHARP";
         break;
     case 5:
         chord.first = "E";
-        chord.third = "G_sharp";
+        chord.third = "G_SHARP";
         chord.fifth = "B";
         break;
     case 6:
@@ -67,9 +72,9 @@ function getChords() {
         chord.fifth = "C";
         break;
     case 7:
-        chord.first = "F_sharp";
-        chord.third = "A_sharp";
-        chord.fifth = "C_sharp";
+        chord.first = "F_SHARP";
+        chord.third = "A_SHARP";
+        chord.fifth = "C_SHARP";
         break;
     case 8:
         chord.first = "G";
@@ -77,54 +82,42 @@ function getChords() {
         chord.fifth = "D";
         break;
     case 9:
-        chord.first = "G_sharp";
+        chord.first = "G_SHARP";
         chord.third = "C";
-        chord.fifth = "D_sharp";
+        chord.fifth = "D_SHARP";
         break;
     case 10:
         chord.first = "A";
-        chord.third = "C_sharp";
+        chord.third = "C_SHARP";
         chord.fifth = "E";
         break;
     case 11:
-        chord.first = "A_sharp";
+        chord.first = "A_SHARP";
         chord.third = "D";
         chord.fifth = "F";
         break;
     case 12:
         chord.first = "B";
-        chord.third = "D_sharp";
-        chord.fifth = "F_sharp";
+        chord.third = "D_SHARP";
+        chord.fifth = "F_SHARP";
         break;
     default:
         console.log("error");
     }
-    console.log(chord.first);
+    //console.log(chord.first);
 }
 
-getChords();
+
 
 function update() {
 
-
-    if (keydown.space) {
-        console.log("SPACE");
-        getChords();
-        chord.sprite = Sprite(chord.first);
-    }
-
-    if (keydown.C) {
-    
-        
-    
-    }
-
-    if (keydown.right) {}
-
-
-    var current = chord.first.toString();
+    getChords();
+    target = 0;
+    current = chord.first;
+    chord.sprite = Sprite(chord.first);
 
 }
+update();
 
 function draw() {
     canvas.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -132,9 +125,31 @@ function draw() {
 
 }
 
+addEventListener("keypress", function (event) {
+    var character = String.fromCharCode(event.charCode);
+    if(character === character.toUpperCase()){
+     character = character + "_SHARP";   
+    }
+    console.log("char = " + character.toUpperCase());
+    console.log("curr = " + current);
+
+    if (character.toUpperCase() === current) {
+        target++;
+        console.log("correct");
+        console.log(target);
+    } else {
+        console.log("incorrect");
+    }
+
+    if (target === 3) {
+        update();
+    }
+});
 
 
-chord.sprite = Sprite(chord.first);
+
+
+
 
 chord.draw = function () {
     this.sprite.draw(canvas, this.x, this.y);
