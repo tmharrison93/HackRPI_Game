@@ -200,6 +200,7 @@ function reset() {
     clearCheckBoxes();
     addPoint();
 }
+
 function reset_wrong() {
 
     elem = document.getElementById("incorrect");
